@@ -47,6 +47,17 @@ public class UserEntity {
 		super();
 	}
 
+	
+	
+	public UserEntity(String username, Date birthdate, String residanceCountry) {
+		super();
+		this.username = username;
+		this.birthdate = birthdate;
+		this.residanceCountry = residanceCountry;
+	}
+
+
+
 	public UserEntity(String username, Date birthdate, String residanceCountry, String phoneNumber, String gender) {
 		super();
 		this.username = username;
@@ -95,7 +106,34 @@ public class UserEntity {
 	public void setGender(String gender) {
 		this.gender = gender;
 	}
+
+
+
+	@Override
+	public int hashCode() {
+		return this.username.hashCode();
+	}
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if(this == obj) 
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		UserEntity other = (UserEntity) obj;
+		
+		if(this.username != null && this.username.equals(other.getUsername())) {
+			return true;
+		}
+		
+		return false;
+	}
     
+	
     
     
 }
