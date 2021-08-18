@@ -7,7 +7,6 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
 
 import moussaoui.mohammed.technicalTest.validator.AdultConstraint;
@@ -17,123 +16,110 @@ import javax.validation.constraints.NotNull;
 @Entity
 @Table(name = "user")
 public class UserEntity {
-	
+
     @Id
-    @Column(name="USERNAME", unique=true, length=50)
-    @NotBlank(message="Username is mandatory")
+    @Column(name = "USERNAME", unique = true, length = 50)
+    @NotBlank(message = "Username is mandatory")
     private String username;
-    
-    
-    @Column(name="BIRTHDATE")
-    @NotNull(message="Birthdate is mandatory")
+
+    @Column(name = "BIRTHDATE")
+    @NotNull(message = "Birthdate is mandatory")
     @AdultConstraint
     private Date birthdate;
-    
-    @Column(name="RESIDANCE_COUNTRY")
-    @NotBlank(message="Residance Country is mandatory")
-    @Pattern(regexp="France", message="Only users from France can create an account")
+
+    @Column(name = "RESIDANCE_COUNTRY")
+    @NotBlank(message = "Residance Country is mandatory")
+    @Pattern(regexp = "France", message = "Only users from France can create an account")
     private String residanceCountry;
-    
-    @Column(name="PHONE_NUMBER")
-    @Pattern(regexp="(^$|[0-9]{10})", message = "Phone number should be a correct phone number (ex = 0700112233)")
+
+    @Column(name = "PHONE_NUMBER")
+    @Pattern(regexp = "(^$|[0-9]{10})", message = "The phone number must br a 10-digits number (ex = 0700112233)")
     private String phoneNumber;
-    
-    @Column(name="GENDER")
-    @Pattern(regexp="^(?:Male|Female|Other)$", message = "Gender should equals Male, Female or Other")
+
+    @Column(name = "GENDER")
+    @Pattern(regexp = "^(?:Male|Female|Other)$", message = "the gender must be 'Male', 'Female' or 'Other'")
     private String gender;
 
-    
-	public UserEntity() {
-		super();
-	}
+    public UserEntity() {
+        super();
+    }
 
-	
-	
-	public UserEntity(String username, Date birthdate, String residanceCountry) {
-		super();
-		this.username = username;
-		this.birthdate = birthdate;
-		this.residanceCountry = residanceCountry;
-	}
+    public UserEntity(String username, Date birthdate, String residanceCountry) {
+        super();
+        this.username = username;
+        this.birthdate = birthdate;
+        this.residanceCountry = residanceCountry;
+    }
 
+    public UserEntity(String username, Date birthdate, String residanceCountry, String phoneNumber, String gender) {
+        super();
+        this.username = username;
+        this.birthdate = birthdate;
+        this.residanceCountry = residanceCountry;
+        this.phoneNumber = phoneNumber;
+        this.gender = gender;
+    }
 
+    public String getUsername() {
+        return username;
+    }
 
-	public UserEntity(String username, Date birthdate, String residanceCountry, String phoneNumber, String gender) {
-		super();
-		this.username = username;
-		this.birthdate = birthdate;
-		this.residanceCountry = residanceCountry;
-		this.phoneNumber = phoneNumber;
-		this.gender = gender;
-	}
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
-	public String getUsername() {
-		return username;
-	}
+    public Date getBirthdate() {
+        return birthdate;
+    }
 
-	public void setUsername(String username) {
-		this.username = username;
-	}
+    public void setBirthdate(Date birthdate) {
+        this.birthdate = birthdate;
+    }
 
-	public Date getBirthdate() {
-		return birthdate;
-	}
+    public String getResidanceCountry() {
+        return residanceCountry;
+    }
 
-	public void setBirthdate(Date birthdate) {
-		this.birthdate = birthdate;
-	}
+    public void setResidanceCountry(String residanceCountry) {
+        this.residanceCountry = residanceCountry;
+    }
 
-	public String getResidanceCountry() {
-		return residanceCountry;
-	}
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
-	public void setResidanceCountry(String residanceCountry) {
-		this.residanceCountry = residanceCountry;
-	}
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
 
-	public String getPhoneNumber() {
-		return phoneNumber;
-	}
+    public String getGender() {
+        return gender;
+    }
 
-	public void setPhoneNumber(String phoneNumber) {
-		this.phoneNumber = phoneNumber;
-	}
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 
-	public String getGender() {
-		return gender;
-	}
+    @Override
+    public int hashCode() {
+        return this.username.hashCode();
+    }
 
-	public void setGender(String gender) {
-		this.gender = gender;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        UserEntity other = (UserEntity) obj;
 
+        if (this.username != null && this.username.equals(other.getUsername())) {
+            return true;
+        }
 
+        return false;
+    }
 
-	@Override
-	public int hashCode() {
-		return this.username.hashCode();
-	}
-
-
-
-	@Override
-	public boolean equals(Object obj) {
-		if(this == obj) 
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		UserEntity other = (UserEntity) obj;
-		
-		if(this.username != null && this.username.equals(other.getUsername())) {
-			return true;
-		}
-		
-		return false;
-	}
-    
-	
-    
-    
 }
