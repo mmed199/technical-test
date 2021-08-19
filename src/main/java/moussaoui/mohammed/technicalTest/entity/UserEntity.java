@@ -9,12 +9,21 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import moussaoui.mohammed.technicalTest.model.User;
 import moussaoui.mohammed.technicalTest.validator.AdultConstraint;
 
 import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "user")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class UserEntity {
 
     @Id
@@ -40,86 +49,24 @@ public class UserEntity {
     @Pattern(regexp = "^(?:Male|Female|Other)$", message = "the gender must be 'Male', 'Female' or 'Other'")
     private String gender;
 
-    public UserEntity() {
-        super();
+    public UserEntity(User user) {
+    	username = user.getUsername();
+    	birthdate = user.getBirthdate();
+    	residanceCountry = user.getResidanceCountry();
+    	phoneNumber = user.getPhoneNumber();
+    	gender = user.getGender();
     }
-
-    public UserEntity(String username, Date birthdate, String residanceCountry) {
-        super();
-        this.username = username;
-        this.birthdate = birthdate;
-        this.residanceCountry = residanceCountry;
-    }
-
-    public UserEntity(String username, Date birthdate, String residanceCountry, String phoneNumber, String gender) {
-        super();
-        this.username = username;
-        this.birthdate = birthdate;
-        this.residanceCountry = residanceCountry;
-        this.phoneNumber = phoneNumber;
-        this.gender = gender;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public Date getBirthdate() {
-        return birthdate;
-    }
-
-    public void setBirthdate(Date birthdate) {
-        this.birthdate = birthdate;
-    }
-
-    public String getResidanceCountry() {
-        return residanceCountry;
-    }
-
-    public void setResidanceCountry(String residanceCountry) {
-        this.residanceCountry = residanceCountry;
-    }
-
-    public String getPhoneNumber() {
-        return phoneNumber;
-    }
-
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public String getGender() {
-        return gender;
-    }
-
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
-    @Override
-    public int hashCode() {
-        return this.username.hashCode();
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        UserEntity other = (UserEntity) obj;
-
-        if (this.username != null && this.username.equals(other.getUsername())) {
-            return true;
-        }
-
-        return false;
+    
+    
+    public User toModel() {
+    	User user = new User();
+    	user.setUsername(username);
+    	user.setBirthdate(birthdate);
+    	user.setResidanceCountry(residanceCountry);
+    	user.setPhoneNumber(phoneNumber);
+    	user.setGender(gender);
+    	
+    	return user;
     }
 
 }

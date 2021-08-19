@@ -1,4 +1,4 @@
-package moussaoui.mohammed.technicalTest.controller;
+/*package moussaoui.mohammed.technicalTest.controller;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.ArgumentMatchers.any;
@@ -12,13 +12,11 @@ import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
 
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -26,9 +24,10 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import moussaoui.mohammed.technicalTest.entity.UserEntity;
 import moussaoui.mohammed.technicalTest.service.UserService;
 
-@RunWith(SpringRunner.class)
 @WebMvcTest(UserController.class)
 public class UserControllerIntegrationTest {
+	
+	
     @Autowired
     private MockMvc mvc;
 
@@ -80,4 +79,4 @@ public class UserControllerIntegrationTest {
             .andExpect(jsonPath("$.residanceCountry", is("Only users from France can create an account")))
             .andExpect(jsonPath("$.gender", is("Gender should equals Male, Female or Other")));
     }
-}
+}*/

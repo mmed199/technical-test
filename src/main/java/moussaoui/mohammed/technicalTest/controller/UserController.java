@@ -6,7 +6,9 @@ import java.util.Map;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,9 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.http.HttpStatus;
-import org.springframework.validation.FieldError;
-import moussaoui.mohammed.technicalTest.entity.UserEntity;
+
+import moussaoui.mohammed.technicalTest.model.User;
 import moussaoui.mohammed.technicalTest.service.UserService;
 
 @RestController
@@ -29,7 +30,7 @@ public class UserController {
     UserService userService;
 
     @PostMapping(path = "/user")
-    public ResponseEntity<UserEntity> addUser(@Valid @RequestBody UserEntity user) {
+    public ResponseEntity<User> addUser(@Valid @RequestBody User user) {
         if (this.userService.userExists(user)) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(user);
         } else {
@@ -38,8 +39,8 @@ public class UserController {
     }
 
     @GetMapping(path = "/user/{username}")
-    public ResponseEntity<UserEntity> getUser(@PathVariable String username) {
-        UserEntity user = this.userService.getUserByUsername(username);
+    public ResponseEntity<User> getUser(@PathVariable String username) {
+    	User user = this.userService.getUserByUsername(username);
 
         if (user != null) {
             return ResponseEntity.ok(user);

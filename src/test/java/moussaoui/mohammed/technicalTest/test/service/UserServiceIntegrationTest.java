@@ -1,4 +1,4 @@
-package moussaoui.mohammed.technicalTest.test.service;
+/*package moussaoui.mohammed.technicalTest.test.service;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -82,4 +82,4 @@ public class UserServiceIntegrationTest {
         assertThat(exists, is(false));
     }
 
-}
+}*/
