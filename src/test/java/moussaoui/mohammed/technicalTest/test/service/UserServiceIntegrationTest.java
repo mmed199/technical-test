@@ -8,9 +8,6 @@ import static org.hamcrest.Matchers.nullValue;
 import java.util.Date;
 import java.util.Optional;
 
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.TestConfiguration;
@@ -81,5 +78,4 @@ public class UserServiceIntegrationTest {
 
         assertThat(exists, is(false));
     }
-
 }*/

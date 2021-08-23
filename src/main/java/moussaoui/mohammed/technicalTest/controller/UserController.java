@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import moussaoui.mohammed.technicalTest.advice.TrackExecutionTime;
+import moussaoui.mohammed.technicalTest.advice.TrackRequest;
 import moussaoui.mohammed.technicalTest.model.User;
 import moussaoui.mohammed.technicalTest.service.UserService;
 
@@ -30,6 +32,8 @@ public class UserController {
     UserService userService;
 
     @PostMapping(path = "/user")
+    @TrackRequest
+    @TrackExecutionTime
     public ResponseEntity<User> addUser(@Valid @RequestBody User user) {
         if (this.userService.userExists(user)) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(user);
@@ -39,6 +43,8 @@ public class UserController {
     }
 
     @GetMapping(path = "/user/{username}")
+    @TrackExecutionTime
+    @TrackRequest
     public ResponseEntity<User> getUser(@PathVariable String username) {
     	User user = this.userService.getUserByUsername(username);
 

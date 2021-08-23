@@ -23,7 +23,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import moussaoui.mohammed.technicalTest.controller.UserController;
 import moussaoui.mohammed.technicalTest.model.User;
-import moussaoui.mohammed.technicalTest.service.UserService;
+import moussaoui.mohammed.technicalTest.service.impl.UserServiceImpl;
 
 
 /**
@@ -52,7 +52,7 @@ public class UserControllerUnitTest {
 	private static User validUser;
 
 	@MockBean
-	private UserService userService;
+	private UserServiceImpl userService;
 
 	@Autowired
 	private MockMvc mvc;
@@ -62,7 +62,7 @@ public class UserControllerUnitTest {
 
 
 	/**
-	 * Before starting the tests, instantiate the proprety correctUser
+	 * Before starting the tests, instantiate the proprety validUser
 	 */
 	@BeforeAll
 	public static void initUser() {
@@ -144,13 +144,13 @@ public class UserControllerUnitTest {
 	}
 
 	/**
-	 * Unit test for the POST user endpoint when the user is correct, the api
-	 * should return OK and the user
+	 * Unit test for the POST user endpoint when the user is not correct, the api
+	 * should return NOT FOUND 400 and the errors descriptions 
 	 * 
 	 * @throws Exception
 	 */
     @Test
-    public void sendingCorrectUser_whenUserAdd_thenReturnErrorJson()
+    public void sendingUserWithErrors_whenUserAdd_thenReturnErrorJson()
         throws Exception {
         User userWithErors = new User("Moussaoui_test", new Date(), "Italy");
         userWithErors.setGender("M");
@@ -166,4 +166,24 @@ public class UserControllerUnitTest {
 		            .andExpect(jsonPath("$.residanceCountry", is("Only users from France can create an account")))
 		            .andExpect(jsonPath("$.gender", is("The gender must be 'Male', 'Female' or 'Other'")));
     }
+    
+    /**
+     * Unit test for POST user endpoint, when the user already exists the api
+     * should return CONFLCIT 409 
+     * 
+     * @throws Exception
+     */
+    @Test
+    public void sendingValidUser_givenUserAlreadyExists_whenUserAdd_thenReturnErrorJson() throws Exception {
+		Mockito.when(userService.userExists(any(User.class))).thenReturn(true);
+
+		mvc.perform(
+        		MockMvcRequestBuilders
+        			.post(ENDPOINT)
+        			.contentType(MediaType.APPLICATION_JSON)
+        			.content(objectMapper.writeValueAsString(validUser)))
+		            .andExpect(status().is(409));
+    }
+    
+    
 }

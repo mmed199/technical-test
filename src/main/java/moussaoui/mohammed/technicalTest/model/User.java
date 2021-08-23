@@ -103,5 +103,13 @@ public class User {
         return false;
     }
 
+	@Override
+	public String toString() {
+		return "User [username=" + username + ", birthdate=" + birthdate + ", residanceCountry=" + residanceCountry
+				+ ", phoneNumber=" + phoneNumber + ", gender=" + gender + "]";
+	}
+    
+    
+    
     
 }
