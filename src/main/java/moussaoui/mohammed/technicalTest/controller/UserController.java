@@ -24,6 +24,13 @@ import moussaoui.mohammed.technicalTest.advice.TrackRequest;
 import moussaoui.mohammed.technicalTest.model.User;
 import moussaoui.mohammed.technicalTest.service.UserService;
 
+/**
+ * UserController is the main controller of the app,
+ * this controller exposes the /user end point
+ * 
+ * @author moussaoui
+ *
+ */
 @RestController
 @RequestMapping(path = "/api")
 public class UserController {
@@ -31,6 +38,15 @@ public class UserController {
     @Autowired
     UserService userService;
 
+    /**
+     * Manages the POST request on the /user endpoint, creates the user and returns
+     * the errors if they occurs
+     * 
+     * @param user the user to be saved, it will first pass by a validation layer
+     * @return ResponseEntity<User> the user saved if it pass the validation layer [Status = OK],
+     * if not, it return the list of errors [Status BAD_REQUEST]
+     * if the user already exists [Status CONFLICT]
+     */
     @PostMapping(path = "/user")
     @TrackRequest
     @TrackExecutionTime
@@ -42,6 +58,13 @@ public class UserController {
         }
     }
 
+    /**
+     * Manages the GET request on the /user/{username} endpoint, return the user if it exists
+     * or NOT_FOUND error if not
+     * 
+     * @param username the username of the user to find
+     * @return ResponseEntity<User> the user if exists, or NOT_FOUND error if not
+     */
     @GetMapping(path = "/user/{username}")
     @TrackExecutionTime
     @TrackRequest
@@ -55,6 +78,12 @@ public class UserController {
         }
     }
 
+    /**
+     * Manages the validation layer, it return a Map of errors.
+     * 
+     * @param ex
+     * @return Map<String, String> list of errors
+     */
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public Map<String, String> handleValidationExceptions(

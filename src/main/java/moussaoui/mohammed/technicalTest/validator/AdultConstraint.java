@@ -11,6 +11,12 @@ import javax.validation.Payload;
 
 import moussaoui.mohammed.technicalTest.validator.impl.AdultValidator;
 
+/**
+ * Provides a constraint to check Adults, using the birth date
+ * Applies on {@link java.util.Date Date}
+ * 
+ * @author moussaoui
+ */
 @Documented
 @Constraint(validatedBy = AdultValidator.class)
 @Target({ElementType.METHOD, ElementType.FIELD})

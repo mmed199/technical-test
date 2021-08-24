@@ -10,6 +10,12 @@ import moussaoui.mohammed.technicalTest.model.User;
 import moussaoui.mohammed.technicalTest.repository.UserRepository;
 import moussaoui.mohammed.technicalTest.service.UserService;
 
+/**
+ * The main implementation of {@link moussaoui.mohammed.technicalTest.service.UserService UserService}
+ * 
+ * @author moussaoui
+ *
+ */
 @Service
 public class UserServiceImpl implements UserService {
 

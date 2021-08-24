@@ -8,22 +8,43 @@ import javax.validation.constraints.Pattern;
 
 import moussaoui.mohammed.technicalTest.validator.AdultConstraint;
 
+/**
+ * Specifies the user details with the validations to make in the 
+ * @author moussaoui
+ *
+ */
 public class User {
     
+	/**
+	 * the username can not be empty
+	 */
     @NotBlank(message = "Username is mandatory")
     private String username;
 
+	/**
+	 * the birthdate can not be empty, and the age has to be > 18
+	 */
     @NotNull(message = "Birthdate is mandatory")
     @AdultConstraint
     private Date birthdate;
 
+    /**
+     * the residanceCountry can not be empty, and it has to equal 'France'
+     */
     @NotBlank(message = "Residance Country is mandatory")
     @Pattern(regexp = "France", message = "Only users from France can create an account")
     private String residanceCountry;
 
-    @Pattern(regexp = "(^$|[0-9]{10})", message = "The phone number must br a 10-digits number (ex = 0700112233)")
+    /**
+     * the phoneNumber can be empty, and must be correct
+     * 
+     */
+    @Pattern(regexp = "(^$|[0-9]{10})", message = "The phone number must be a 10-digits number (ex = 0700112233)")
     private String phoneNumber;
 
+    /**
+     * the gender can be empty, and must be Male, Female orOther
+     */
     @Pattern(regexp = "^(?:Male|Female|Other)$", message = "The gender must be 'Male', 'Female' or 'Other'")
     private String gender;
 

@@ -12,6 +12,11 @@ import lombok.Builder;
 import lombok.Data;
 import moussaoui.mohammed.technicalTest.model.User;
 
+/**
+ * Specifies the user details in the persistence layer, used to create the user table
+ * @author moussaoui
+ *
+ */
 @Entity
 @Table(name = "user")
 @Data

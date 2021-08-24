@@ -10,6 +10,12 @@ import javax.validation.ConstraintValidatorContext;
 
 import moussaoui.mohammed.technicalTest.validator.AdultConstraint;
 
+/**
+ * The main implementation of the validator {@link moussaoui.mohammed.technicalTest.validator.AdultConstraint AdultConstraint}
+ * 
+ * @author moussaoui
+ *
+ */
 public class AdultValidator implements ConstraintValidator<AdultConstraint, Date> {
 
     @Override

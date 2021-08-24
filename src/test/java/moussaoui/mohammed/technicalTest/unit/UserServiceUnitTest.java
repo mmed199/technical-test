@@ -23,6 +23,14 @@ import moussaoui.mohammed.technicalTest.repository.UserRepository;
 import moussaoui.mohammed.technicalTest.service.UserService;
 import moussaoui.mohammed.technicalTest.service.impl.UserServiceImpl;
 
+/**
+ * Unit tests for the class
+ * {@link moussaoui.mohammed.technicalTest.service.impl.UserServiceImpl UserServiceImpl}.
+ * In the test cases we mock the Repository layer to isolate the service.
+ * 
+ * @author Moussaoui Mohammed
+ *
+ */
 @ExtendWith(MockitoExtension.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class UserServiceUnitTest {
@@ -139,20 +147,3 @@ public class UserServiceUnitTest {
 
 }
 
-/*
-@RunWith(SpringRunner.class)
-@DataJpaTest
-public class UserRepositoryTest {
-	@Autowired
-	TestEntityManager entityManager;
-	@Autowired
-	UserRepository sut;
-
-	@Test
-	public void it_should_save_user() {
-		User user = new User();
-		user.setName("test user");
-		user = entityManager.persistAndFlush(user);
-		assertThat(sut.findById(user.getId()).get()).isEqualTo(user);
-	}
-}*/

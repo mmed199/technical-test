@@ -1,10 +1,11 @@
 package moussaoui.mohammed.technicalTest.unit;
 
+import static org.hamcrest.Matchers.is;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Optional;
 
-import org.hamcrest.CoreMatchers;
 import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -16,9 +17,15 @@ import moussaoui.mohammed.technicalTest.entity.UserEntity;
 import moussaoui.mohammed.technicalTest.model.User;
 import moussaoui.mohammed.technicalTest.repository.UserRepository;
 
-import static org.hamcrest.Matchers.is;
-
-
+/**
+ * Unit tests for the repository layer
+ * {@link moussaoui.mohammed.technicalTest.repository.UserRepository UserRepository} 
+ * In the test cases, we use the class TestEntityManager that allows us to
+ * use EntityManager in tests.
+ * 
+ * @author moussaoui
+ *
+ */
 @DataJpaTest
 public class UserRepositoryUnitTest {
 
@@ -51,22 +58,22 @@ public class UserRepositoryUnitTest {
 		validUser.setPhoneNumber(PHONE_NUMBER);
 		validUser.setGender(GENDER);
 	}
-	
+
 	/**
-	 * Unit Test for the findById method when user is saved,
-	 * should return the correct user
+	 * Unit Test for the findById method when user is saved, should return the
+	 * correct user
 	 * 
 	 * @throws Exception
 	 */
 	@Test
 	public void whenUserSaved_findByIdReturnUser() throws Exception {
 		UserEntity userSaved = entityManager.persistAndFlush(new UserEntity(validUser));
-		MatcherAssert.assertThat(userRepository.findById(USERNAME), is(Optional.of(userSaved)));		
+		MatcherAssert.assertThat(userRepository.findById(USERNAME), is(Optional.of(userSaved)));
 	}
-	
+
 	/**
-	 * Unit Test for the findById method when user is not saved
-	 * should return empty optional
+	 * Unit Test for the findById method when user is not saved should return empty
+	 * optional
 	 * 
 	 * @throws Exception
 	 */
@@ -74,7 +81,5 @@ public class UserRepositoryUnitTest {
 	public void whenNoUserSaved_findByIdReturnEmptyOptional() throws Exception {
 		MatcherAssert.assertThat(userRepository.findById(USERNAME), is(Optional.empty()));
 	}
-	
-	
 
 }

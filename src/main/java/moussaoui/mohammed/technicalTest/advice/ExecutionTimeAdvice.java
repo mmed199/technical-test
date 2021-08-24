@@ -8,6 +8,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnExpression;
 import org.springframework.stereotype.Component;
 
+/**
+ * Advice arround a ProceedingJoinPoint to calculate the execution time
+ * 
+ * @author moussaoui
+ */
 @Aspect
 @Component
 @ConditionalOnExpression("${aspect.enabled:true}")
@@ -17,6 +22,7 @@ public class ExecutionTimeAdvice {
 
 	@Around("@annotation(moussaoui.mohammed.technicalTest.advice.TrackExecutionTime)")
 	public Object executionTime(ProceedingJoinPoint point) throws Throwable {
+		
 		// Save the start Time, proceed the point execution, then save the end time
 		long startTime = System.currentTimeMillis();
 		Object object = point.proceed();

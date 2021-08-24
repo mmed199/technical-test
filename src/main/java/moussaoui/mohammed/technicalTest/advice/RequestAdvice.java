@@ -18,7 +18,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
 
-
+/**
+ * Aspect used to log requests sent to an api endpoint
+ * 
+ * @author moussaoui
+ *
+ */
 @Aspect
 @Component
 public class RequestAdvice {
@@ -29,12 +34,15 @@ public class RequestAdvice {
 	private HttpServletRequest request;	
 	
     @Pointcut("@annotation(moussaoui.mohammed.technicalTest.advice.TrackRequest)")
-    public void postAction() {
+    public void action() {
     	
     }
     
-    @Before("postAction()")
+    @Before("action()")
     public void logAction(JoinPoint joinPoint) {
+    	
+    	// if the method is GET, log the url params,
+    	// if other log the body
     	if(!"GET".equals(request.getMethod())) {
         	logger.info("[ Uri = " + request.getRequestURI() + ", Body = " + getRequestBody(joinPoint) + "]");
     	} else {
@@ -48,6 +56,8 @@ public class RequestAdvice {
         MethodSignature methodSignature = (MethodSignature) joinPoint.getSignature();
         Method method = methodSignature.getMethod();
         Annotation[][] annotationMatrix = method.getParameterAnnotations();
+        
+        // search the requestBody on the Parameter Annotations
         int index = -1;
         for (Annotation[] annotations : annotationMatrix) {
           index++;
